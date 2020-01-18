@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def reduce_noise(filename):
     df = pd.read_csv(filename, usecols=["time", "az"])
-    #df["az"] = abs(df["az"])
+    df["az"] = abs(df["az"])
     df['MA'] = df.rolling(window=5).mean()
     return df
 
