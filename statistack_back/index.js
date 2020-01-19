@@ -13,28 +13,29 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect(CONNECTION_URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(CONNECTION_URL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: true,
+});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.get('/', (req, res) => res.send('You reached the get endpoint'));
 
-app.post('/', (req, res) => {
-  var iteration = Iteration({
-    index: 34,
-    datapoints: [
-      {
-        lat: 124,
-        long: 567,
-        weight: 25,
-      },
-    ],
-  });
-  iteration.save((err) => {
-    if (err) throw err;
+app.post('/', async (req, res) => {
+  const options = { new: true, upsert: true };
 
-    console.log('iteration created!');
-  });
+  for (let i = 0; i < req.body.length; i++) {
+    const iteration = {
+      index: i,
+      datapoints: req.body[i],
+    };
+    const filter = { index: i };
+    await Iteration.findOneAndUpdate(filter, iteration, options);
+  }
+
   res.send('You reached the post endpoint');
 });
 
