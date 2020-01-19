@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Map from '../components/Map';
-
+import logo from './potfix_logo.png';
 import { Container, Slider } from '@material-ui/core';
 import heatmapDataArray from '../sample_data_2.json';
 
@@ -23,10 +23,10 @@ const ToolboxContainer = styled.div`
 
 const TitleContainer = styled.div`
     width: 100%;
-    padding-bottom: 30px;
+    padding: 20px 0 20px 20px;
 
-    h1 {
-        padding-left: 15px;
+    img {
+        height: 150px;
     }
 `;
 
@@ -35,7 +35,8 @@ const SectionContainer = styled.div`
     padding-bottom: 20px;
 
     h2 {
-        padding-left: 15px;
+        padding-left: 25px;
+        font-weight: 400;
     }
 `;
 
@@ -81,7 +82,7 @@ export default class Home extends React.Component {
 
                 <ToolboxContainer>
                     <TitleContainer>
-                        <h1> Statistack</h1>
+                        <img src={logo} />
                     </TitleContainer>
 
                     <SectionContainer>
