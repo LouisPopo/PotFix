@@ -47,7 +47,7 @@ const Map = compose(
 
             options={{
                 radius: 10,
-                opacity: 0.5,
+                opacity: props.opacity,
             }}
         />
     </GoogleMap>  
@@ -60,6 +60,7 @@ export default class MapContainer extends React.Component {
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZubQYc2srdfMo0lxnZOc0ZgqxgQEy2Cw&v=3.exp&libraries=geometry,drawing,places,visualization"
                 data={this.props.data}
                 threshold={this.props.threshold}
+                opacity={this.props.opacity}
             />
         )
     }

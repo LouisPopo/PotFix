@@ -49,7 +49,8 @@ export default class Home extends React.Component {
             thresholdToggled: false,
             thresholdValue: 0,
             threshold: 0,
-            data: heatmapDataArray[0]
+            data: heatmapDataArray[0],
+            opacity: 0.3
         }
         this.handleIterationChange = this.handleIterationChange.bind(this);
         this.handleThresholdChange = this.handleThresholdChange.bind(this);
@@ -58,7 +59,8 @@ export default class Home extends React.Component {
     handleIterationChange(e, val) {
         if (val > 0 || val < 20 && val) {
             this.setState({ iterationValue: val });
-            this.setState({ data: heatmapDataArray[val-1]})
+            this.setState({ data: heatmapDataArray[val-1]});
+            this.setState({ opacity: 0.3 + 0.02 * val });
         } else {
             this.setState({ iterationValue: val });
         }
@@ -120,7 +122,8 @@ export default class Home extends React.Component {
                         iterationToggled={this.state.iterationToggled}
                         thresholdToggled={this.state.thresholdToggled}
                         threshold={this.state.threshold}
-                    /> 
+                        opacity={this.state.opacity}
+                    />
                 </MapContainer>
             </HomeContainer>
         )
