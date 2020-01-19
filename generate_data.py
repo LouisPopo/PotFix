@@ -2,6 +2,7 @@ import sys
 import numpy
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 def getEquidistancePoints(p1, p2, parts):
     return zip(numpy.linspace(p1[0], p2[0], parts+1),
@@ -20,18 +21,11 @@ if __name__ == "__main__":
     df['lat'] = points[0]
     df['lng'] = points[1]
 
-    df['weight'] = abs(df['az'] + (np.array(np.random.randn(df.shape[0]))/40))
-
-    df.drop(columns=["az"], inplace=True)
-
-    print(df.head())
-
-    filename = "Data/sample_data.json" 
-    df.to_json(filename, orient="records")
-
-    # for i in range(10):
-    #     d = 
-    #     df["noisy"] = df["az"] + (np.array(d))/40
-    #     df.to_csv("Noisy_data/" + str(i) + ".csv", header=True)
+    for i in range(20):
+        new_df = df.copy(deep=True)
+        new_df["weight"] = abs(df["az"] + (np.array(np.random.randn(df.shape[0])))/20)
+        new_df.drop(columns=["az"], inplace=True)
+        new_df.to_csv("Noisy_data/" + str(i) + ".csv", header=True)
+    
 
 
