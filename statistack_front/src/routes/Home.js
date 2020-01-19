@@ -48,26 +48,28 @@ export default class Home extends React.Component {
             iterationValue: 0,
             thresholdToggled: false,
             thresholdValue: 0,
+            threshold: 0,
             data: heatmapDataArray[0]
         }
         this.handleIterationChange = this.handleIterationChange.bind(this);
         this.handleThresholdChange = this.handleThresholdChange.bind(this);
     }
 
-    handleIterationChange(event, value) {
-        if (value > 0 || value < 20 && value) {
-            this.setState({ iterationValue: value });
-            this.setState({ data: heatmapDataArray[value-1]})
+    handleIterationChange(e, val) {
+        if (val > 0 || val < 20 && val) {
+            this.setState({ iterationValue: val });
+            this.setState({ data: heatmapDataArray[val-1]})
         } else {
-            this.setState({ iterationValue: value });
+            this.setState({ iterationValue: val });
         }
     }
 
-    handleThresholdChange(event) {
-        if (value) {
-
+    handleThresholdChange(e, val) {
+        if (val) {
+            this.setState({ threshold: val });
+            this.setState({ thresholdValue: val });
         } else {
-            this.setState({ iterationValue: value });
+            this.setState({ thresholdValue: val });
         }
     }
 
@@ -97,23 +99,28 @@ export default class Home extends React.Component {
 
                     <SectionContainer>
                         <h2>Threshold</h2>
-                        {/* <Container>
+                        <Container>
                             <Slider
                                 value={this.state.thresholdValue}
-                                onChange={(e) => this.handleThresholdChange(e)}
+                                onChange={(e, val) => this.handleThresholdChange(e, val)}
                                 step={0.01}
                                 min={0}
                                 max={1}
                                 aria-labelledby="continuous-slider"
                             />
-                        </Container> */}
+                        </Container>
                     </SectionContainer>
 
 
                 </ToolboxContainer>
 
                 <MapContainer>
-                    <Map data={this.state.data} /> 
+                    <Map
+                        data={this.state.data} 
+                        iterationToggled={this.state.iterationToggled}
+                        thresholdToggled={this.state.thresholdToggled}
+                        threshold={this.state.threshold}
+                    /> 
                 </MapContainer>
             </HomeContainer>
         )

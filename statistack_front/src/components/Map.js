@@ -27,9 +27,11 @@ const Map = compose(
     >
         <HeatmapLayer
             data={props.data.map(function(p) {
-                return {
-                    location: new google.maps.LatLng(p.lat, p.lng),
-                    weight: p.weight
+                if (p.weight > props.threshold) {
+                    return {
+                        location: new google.maps.LatLng(p.lat, p.lng),
+                        weight: p.weight
+                    }
                 }
             })}
 
@@ -47,6 +49,7 @@ export default class MapContainer extends React.Component {
             <Map
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZubQYc2srdfMo0lxnZOc0ZgqxgQEy2Cw&v=3.exp&libraries=geometry,drawing,places,visualization"
                 data={this.props.data}
+                threshold={this.props.threshold}
             />
         )
     }
