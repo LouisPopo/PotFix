@@ -105,7 +105,7 @@ export default class Home extends React.Component {
                                 onChange={(e, val) => this.handleThresholdChange(e, val)}
                                 step={0.01}
                                 min={0}
-                                max={1}
+                                max={0.6}
                                 aria-labelledby="continuous-slider"
                             />
                         </Container>
