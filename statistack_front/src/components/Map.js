@@ -24,6 +24,15 @@ const Map = compose(
     <GoogleMap
         defaultZoom={14}
         defaultCenter={{ lat: 45.504136, lng: -73.614522 }}
+        defaultOptions={{
+            streetViewControl: false,
+            scaleControl: false,
+            mapTypeControl: false,
+            panControl: false,
+            zoomControl: false,
+            rotateControl: false,
+            fullscreenControl: false
+        }}
     >
         <HeatmapLayer
             data={props.data.map(function(p) {
