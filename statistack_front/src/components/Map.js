@@ -3,13 +3,20 @@ import { compose, withProps, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap} from "react-google-maps";
 import HeatmapLayer from "react-google-maps/lib/components/visualization/HeatmapLayer";
 
-import heatmapData from './sample_data.json';
+// import heatmapData from './sample_data.json';
 
 const Map = compose(
     withProps({
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `100vh` }} />,
         mapElement: <div style={{ height: `100%` }} />
+    }),
+    lifecycle({
+        componentWillReceiveProps(nextProps) {
+            if (nextProps != this.props) {
+                this.props = nextProps
+            }
+        }
     }),
     withScriptjs,
     withGoogleMap
@@ -39,7 +46,7 @@ export default class MapContainer extends React.Component {
         return (
             <Map
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZubQYc2srdfMo0lxnZOc0ZgqxgQEy2Cw&v=3.exp&libraries=geometry,drawing,places,visualization"
-                data={heatmapData}
+                data={this.props.data}
             />
         )
     }
