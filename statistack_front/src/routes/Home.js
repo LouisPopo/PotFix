@@ -1,26 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import Toolbox from '../components/Toolbox';
 import Map from '../components/Map';
 
 const HomeContainer = styled.div`
-`;
-
-const NavbarContainer = styled.div`
-    height: 50px;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
 `;
 
 const MapContainer = styled.div`
-    width: 100%;
+    flex-grow: 1;
+    height: 100%;
 `;
 
 export default class Home extends React.Component {
     render() {
         return (
             <HomeContainer>
-                <NavbarContainer>
-
-                </NavbarContainer>
+                <Toolbox/>
 
                 <MapContainer>
                     <Map />

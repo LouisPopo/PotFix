@@ -8,7 +8,7 @@ import heatmapData from './sample_data.json';
 const Map = compose(
     withProps({
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `700px` }} />,
+        containerElement: <div style={{ height: `100vh` }} />,
         mapElement: <div style={{ height: `100%` }} />
     }),
     withScriptjs,
