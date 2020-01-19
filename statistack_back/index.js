@@ -1,25 +1,43 @@
 var express = require('express');
-var bodyParser = require('body-parser'); 
+var bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 
-const CONNECTION_URL = "mongodb+srv://statistack:statistack@statistack-jpdps.mongodb.net/test?retryWrites=true&w=majority";
-const DATABASE_NAME = "statistack";
+var Iteration = require('./model/iteration');
 
-var app = express();
+const CONNECTION_URL =
+  'mongodb+srv://statistack_client:potholes@statistack-q2yt6.gcp.mongodb.net/test?retryWrites=true&w=majority';
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true });
+mongoose.connect(CONNECTION_URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 var db = mongoose.connection;
-// Added check for DB connection
-if (!db) {
-    console.log("Error connecting db");
-}
-else {
-    console.log("Db connected successfully");
-}
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const PORT = process.env.PORT || 5000;
+app.get('/', (req, res) => res.send('You reached the get endpoint'));
+
+app.post('/', (req, res) => {
+  var iteration = Iteration({
+    index: 34,
+    datapoints: [
+      {
+        lat: 124,
+        long: 567,
+        weight: 25,
+      },
+    ],
+  });
+  iteration.save((err) => {
+    if (err) throw err;
+
+    console.log('iteration created!');
+  });
+  res.send('You reached the post endpoint');
+});
+
 app.listen(PORT, () => {
-    console.log(`statistack_back listening on port ${PORT}`);
+  console.log(`statistack_back listening on port ${PORT}`);
 });
