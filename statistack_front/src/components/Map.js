@@ -27,7 +27,7 @@ const Map = compose(
     >
         <HeatmapLayer
             data={props.data.map(function(p) {
-                return {
+                if (p.weight > 0.0) return {
                     location: new google.maps.LatLng(p.lat, p.lng),
                     weight: p.weight
                 }
@@ -35,7 +35,7 @@ const Map = compose(
 
             options={{
                 radius: 10,
-                opacity: 0.5,
+                opacity: props.opacity,
             }}
         />
     </GoogleMap>  
@@ -47,6 +47,7 @@ export default class MapContainer extends React.Component {
             <Map
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZubQYc2srdfMo0lxnZOc0ZgqxgQEy2Cw&v=3.exp&libraries=geometry,drawing,places,visualization"
                 data={this.props.data}
+                opacity={this.props.opacity}
             />
         )
     }

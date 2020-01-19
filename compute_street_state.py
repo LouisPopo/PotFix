@@ -31,7 +31,7 @@ print(len(states))
 
 string_to_write = "[" + ",".join(states) + "]"
 
-with open('final_sample.json', 'w') as file:
+with open('statistack_front/src/sample_data_2.json', 'w') as file:
     file.write(string_to_write)
 
 

@@ -23,7 +23,17 @@ if __name__ == "__main__":
 
     for i in range(20):
         new_df = df.copy(deep=True)
-        new_df["weight"] = abs(df["az"] + (np.array(np.random.randn(df.shape[0])))/20)
+        randomness = 40
+
+    
+        # if (i == 0 or i == 1 or i == 2):
+        #     randomness = 5
+
+        new_df["weight"] = abs(df["az"] + (np.array(np.random.randn(df.shape[0])))/randomness)
+
+        if( i > 5):
+            new_df.loc[1, 'weight'] = 0.8
+
         new_df.drop(columns=["az"], inplace=True)
         new_df.to_csv("Noisy_data/" + str(i) + ".csv", header=True)
     
