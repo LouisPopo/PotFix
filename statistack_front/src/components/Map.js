@@ -29,9 +29,10 @@ const Map = compose(
             scaleControl: false,
             mapTypeControl: false,
             panControl: false,
-            zoomControl: false,
             rotateControl: false,
-            fullscreenControl: false
+            fullscreenControl: false,
+            minZoom: 14,
+            maxZoom: 15
         }}
     >
         <HeatmapLayer
