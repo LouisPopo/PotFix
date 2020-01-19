@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 
 var Iteration = require('./model/iteration');
+var AndroidModel = require('./model/android');
 
 const CONNECTION_URL =
   'mongodb+srv://statistack_client:potholes@statistack-q2yt6.gcp.mongodb.net/test?retryWrites=true&w=majority';
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 mongoose.connect(CONNECTION_URL, {
-  useUnifiedTopology: true,
+  useUnifiedTopology: false,
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: true,
@@ -35,6 +36,17 @@ app.post('/', async (req, res) => {
     const filter = { index: i };
     await Iteration.findOneAndUpdate(filter, iteration, options);
   }
+
+  res.send('You reached the post endpoint');
+});
+
+app.post('/api/android', (req, res) => {
+  const data = req.body;
+  const android = new AndroidModel({
+      datapoint: data,
+  });
+  
+  android.save();
 
   res.send('You reached the post endpoint');
 });
