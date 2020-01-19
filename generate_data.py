@@ -3,6 +3,7 @@ import numpy
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 def getEquidistancePoints(p1, p2, parts):
     return zip(numpy.linspace(p1[0], p2[0], parts+1),
@@ -14,6 +15,10 @@ if __name__ == "__main__":
     p2 = [float(args[3]), float(args[4])]
 
     df = pd.read_csv(str(args[5]), usecols=["az"])
+
+    outputfolder = str(args[6])
+    
+    os.mkdir(outputfolder)
 
     nb = len(df.index)
 
@@ -31,11 +36,9 @@ if __name__ == "__main__":
 
         new_df["weight"] = abs(df["az"] + (np.array(np.random.randn(df.shape[0])))/randomness)
 
-        if( i > 5):
-            new_df.loc[1, 'weight'] = 0.8
 
         new_df.drop(columns=["az"], inplace=True)
-        new_df.to_csv("Noisy_data/" + str(i) + ".csv", header=True)
+        new_df.to_csv(outputfolder + "/" + str(i) + ".csv", header=True)
     
 
 

@@ -4,13 +4,15 @@ import numpy as np
 import json
 import sys
 
-directory = "Noisy_data"
+
+
+directory = sys.argv[1]
 
 json_directory = "json_files"
 
 current_state = pd.DataFrame()
 
-for i in range(0, 20):
+for i in range(0,20):
     filename = str(i) + ".csv"
     df = pd.read_csv(directory + "/" + str(filename), index_col=[0])
     if (i == 0):
